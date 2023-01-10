@@ -13,6 +13,10 @@ public class InvoiceLine {
         this.itemPrice = itemPrice;
     }
 
+    public InvoiceLine() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     public double getPrice() {
         return itemPrice;
     }

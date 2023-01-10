@@ -5,12 +5,14 @@
 package app.view;
 
 import app.controller.Controller;
+import app.model.FileOperations;
 import app.model.InvoiceHeader;
 import app.model.InvoiceLine;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -311,37 +313,27 @@ public class AppFrame extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AppFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AppFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AppFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AppFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AppFrame().setVisible(true);
-            }
-        });
-        
+            String invoiceHeaderFilePath = "D:/Scoolarship/InvoiceHeader.csv";
+            String  itemsHeaderFilePath = "D:/Scoolarship/InvoiceLine.csv";
+            FileOperations fileOperations = new FileOperations();
+            fileOperations.ReadFile(invoiceHeaderFilePath, itemsHeaderFilePath);
+            Print(fileOperations.invoiceHeaders);
     }
+   
+    public static void Print (ArrayList<InvoiceHeader> invoiceHeaders)
+    {
+        SimpleDateFormat newFormat = new SimpleDateFormat("DD/MM/YYYY");
+        for (int i = 0; i < invoiceHeaders.size(); i++) {
+            System.out.println(invoiceHeaders.get(i).getNum());
+            System.out.println("{");
+            System.out.println(newFormat.format(invoiceHeaders.get(i).getDate()) + ", " +invoiceHeaders.get(i).getName());
+            for (int j = 0; j < invoiceHeaders.get(i).getItems().size(); j++) {    
+            System.out.println(invoiceHeaders.get(i).getItems().get(j).getName()+ ", " +invoiceHeaders.get(i).getItems().get(j).getPrice() + ", " +invoiceHeaders.get(i).getItems().get(j).getCount());
+            }
+            System.out.println("}");
+        }    
+    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CancelBTN;

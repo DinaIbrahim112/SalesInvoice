@@ -14,8 +14,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -143,12 +145,14 @@ public class Controller implements ActionListener, ListSelectionListener
     
     @Override
     public void valueChanged(ListSelectionEvent event) {
- 
-        int selectedInvoice = -1;
-        if (frame.getInvTable().getSelectedRowCount() > 0) {
+
+         int selectedInvoice = -1;
+         if (frame.getInvTable().getSelectedRowCount() > 0) {
             selectedInvoice = (int) frame.getInvTable().getValueAt(frame.getInvTable().getSelectedRow(), 0);
+                System.out.print(selectedInvoice);
         }
         if (selectedInvoice != -1) {
+            
             ArrayList<InvoiceLine> result = frame.getInvoiceItems();
             frame.getInvNumberLabel().setText(frame.getInvTable().getValueAt(frame.getInvTable().getSelectedRow(), 0).toString());
             frame.getInvDateField().setText(frame.getInvTable().getValueAt(frame.getInvTable().getSelectedRow(), 1).toString());
@@ -157,6 +161,7 @@ public class Controller implements ActionListener, ListSelectionListener
             DefaultTableModel model = (DefaultTableModel) frame.getInvItemTable().getModel();
             model.setRowCount(0);
             for (InvoiceLine item : result) {
+              
                 if (item.getInvNumber()== selectedInvoice) {
                     Object rowData[] = new Object[5];
                     rowData[0] = item.getInvNumber();
