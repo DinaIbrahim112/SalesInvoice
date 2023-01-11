@@ -313,8 +313,8 @@ public class AppFrame extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-            String invoiceHeaderFilePath = "D:/Scoolarship/InvoiceHeader.csv";
-            String  itemsHeaderFilePath = "D:/Scoolarship/InvoiceLine.csv";
+            String invoiceHeaderFilePath = "./InvoiceHeader.csv";
+            String  itemsHeaderFilePath = "./InvoiceLine.csv";
             FileOperations fileOperations = new FileOperations();
             fileOperations.ReadFile(invoiceHeaderFilePath, itemsHeaderFilePath);
             Print(fileOperations.invoiceHeaders);
